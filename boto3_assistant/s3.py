@@ -93,7 +93,7 @@ def download_file(name, prefix, download_location):
     Parameters:
         name (str): The name of the S3 bucket.
         prefix (str): The prefix of the file to download.
-        download_location (str): The path to the location to download the file to.
+        download_location (str): The path to the place to download the file to.
     """
     S3_CLIENT.download_file(name, prefix, download_location)
 

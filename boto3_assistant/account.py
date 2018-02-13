@@ -2,7 +2,6 @@
 import boto3
 
 IAM = boto3.client('iam')
-STS = boto3.client('sts')
 
 
 def get_region():
@@ -23,7 +22,8 @@ def get_account_id():
     Return:
         account_id: The callers AWS account id.
     """
-    account_id = STS.get_caller_identity().get('Account')
+    sts = boto3.client('sts')
+    account_id = sts.get_caller_identity().get('Account')
     return account_id
 
 

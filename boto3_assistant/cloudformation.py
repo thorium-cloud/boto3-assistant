@@ -1,8 +1,6 @@
 """Functions to retrieve information about cloudformation stacks."""
 import boto3
 
-CFN = boto3.client('cloudformation')
-
 
 def list_parameters(url):
     """
@@ -14,7 +12,8 @@ def list_parameters(url):
     Return:
         parameters: A collection parameters in the cfn stack.
     """
-    summary = CFN.get_template_summary(
+    cfn = boto3.client('cloudformation')
+    summary = cfn.get_template_summary(
         TemplateURL=url
     )
     if 'Parameters' in summary:
