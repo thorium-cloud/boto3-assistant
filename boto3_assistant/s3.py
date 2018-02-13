@@ -10,6 +10,7 @@ def create_bucket(name, region):
 
     Parameters:
         name (str): The name of the S3 bucket to create.
+
         region (str): The name of the region to create the bucket in.
     """
     bucket = S3_RESOURCE.Bucket(name)
@@ -40,6 +41,7 @@ def get_sub_folders(name, prefix):
 
     Parameters:
         name (str): The name of the S3 bucket.
+
         prefix (str): The S3 prefix to search under.
     """
     sub_folders = []
@@ -58,6 +60,7 @@ def delete_folder(name, prefix):
 
     Parameters:
         name (str): The name of the S3 bucket.
+
         prefix (str): The root prefix to delete objects under.
     """
     objects_to_delete = S3_RESOURCE.meta.client.list_objects(Bucket=name, Prefix=prefix)
@@ -74,10 +77,11 @@ def get_file(name, prefix):
 
     Parameters:
         name (str): The name of the S3 bucket.
+
         prefix (str): The prefix of the file to get the summary for.
 
     Returns:
-        object_summary: See <a href="http://boto3.readthedocs.io/en/latest/reference/services/s3.html#objectsummary">S3.ObjectSummary</a>
+        object_summary: Details about the requested file.
     """
     bucket = S3_RESOURCE.Bucket(name)
     response = bucket.objects.filter(
@@ -92,7 +96,9 @@ def download_file(name, prefix, download_location):
 
     Parameters:
         name (str): The name of the S3 bucket.
+
         prefix (str): The prefix of the file to download.
+
         download_location (str): The path to the place to download the file to.
     """
     S3_CLIENT.download_file(name, prefix, download_location)
@@ -104,7 +110,9 @@ def upload_file(name, prefix, file_path):
 
     Parameters:
         name (str): The name of the S3 bucket.
+
         prefix (str): The prefix to upload the file to.
+
         file_path (str): The path to the file to upload to S3.
     """
     obj = S3_RESOURCE.Object(name, prefix)
