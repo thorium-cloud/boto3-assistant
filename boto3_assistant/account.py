@@ -1,7 +1,6 @@
 """Functions to retrieve information about the callers account."""
 import boto3
 
-SESSION = boto3.session.Session()
 IAM = boto3.client('iam')
 STS = boto3.client('sts')
 
@@ -13,7 +12,7 @@ def get_region():
     Return:
         region: The region.
     """
-    region = SESSION.region_name
+    region = boto3.session.Session().region_name
     return region
 
 

@@ -7,18 +7,6 @@ from boto3_assistant import account
 
 IAM = boto3.client('iam')
 
-BASIC_POLICY = {
-    'Statement': [
-        {
-            'Principal': {
-                'AWS': account.get_account_id()
-            },
-            'Effect': 'Allow',
-            'Action': ['sts:AssumeRole']
-        }
-    ]
-}
-
 
 def create_role(name, description):
     """
@@ -33,10 +21,21 @@ def create_role(name, description):
     Returns:
         role: Information about the role that is created.
     """
+    basic_policy = {
+        'Statement': [
+            {
+                'Principal': {
+                    'AWS': account.get_account_id()
+                },
+                'Effect': 'Allow',
+                'Action': ['sts:AssumeRole']
+            }
+        ]
+    }
     response = IAM.create_role(
         Path='/',
         RoleName=name,
-        AssumeRolePolicyDocument=json.dumps(BASIC_POLICY),
+        AssumeRolePolicyDocument=json.dumps(basic_policy),
         Description=description
     )
     return response['Role']
